@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Reports | EMS{% endblock %}
+
+{% block content %}
+
+<div class="page-head">
+  <div class="page-title">
+    <div class="page-icon">📊</div>
+    <div>
+      <h2>Reports</h2>
+      <p>Summary of employees and salary by department.</p>
+    </div>
+  </div>
+</div>
+
+<div class="report-grid">
+  <div class="report-card">
+    <div class="report-label">Total Employees</div>
+    <div class="report-value">{{ total_employees }}</div>
+  </div>
+
+  <div class="report-card">
+    <div class="report-label">Total Salary</div>
+    <div class="report-value">{{ total_salary }}</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-head">
+    <h3>Department Report</h3>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>Total Employees</th>
+          <th>Total Salary</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in dept_report %}
+        <tr>
+          <td>{{ d.department }}</td>
+          <td>{{ d.total }}</td>
+          <td>{{ d.salary_sum }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3" style="text-align:center;">No report data found</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

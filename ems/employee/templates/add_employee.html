@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Add Employee | EMS{% endblock %}
+
+{% block content %}
+
+<div class="form-card">
+
+  <h2>Add Employee</h2>
+  <p>Enter employee details below.</p>
+
+  <form method="POST" onsubmit="return validateEmployeeForm();">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" name="name" placeholder="Enter full name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" placeholder="Enter email address" required>
+    </div>
+
+    <div class="form-group">
+      <label>Department</label>
+      <input type="text" name="department" placeholder="Enter department" required>
+    </div>
+
+    <div class="form-group">
+      <label>Salary</label>
+      <input type="number" name="salary" placeholder="Enter salary" required>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn green">Save</button>
+      <a href="/" class="btn blue">Cancel</a>
+    </div>
+
+  </form>
+
+</div>
+
+{% endblock %}

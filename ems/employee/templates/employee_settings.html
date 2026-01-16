@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Employee Settings | EMS{% endblock %}
+
+{% block content %}
+
+<div class="card">
+  <div class="card-head">
+    <h3>Employee Settings</h3>
+  </div>
+
+  <p class="muted">Departments detected from employee records.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>Total Employees</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in departments %}
+        <tr>
+          <td>{{ d.department }}</td>
+          <td>{{ d.total }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2" style="text-align:center;">No departments found</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

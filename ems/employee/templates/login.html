@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login | EMS</title>
+  <link rel="stylesheet" href="{% static 'auth.css' %}">
+  <script src="{% static 'script.js' %}"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+<body class="auth-body">
+
+  <div class="auth-shell">
+
+    <aside class="auth-left">
+      <div class="brand">
+        <div class="brand-logo">EMS</div>
+        <div class="brand-text">
+          <h1>Raj Vardhan Employees </h1>
+          <p>Secure admin access to manage employees, departments and records.</p>
+        </div>
+      </div>
+
+      <div class="brand-pills">
+        <span class="pill">CRUD</span>
+        <span class="pill">MySQL</span>
+        <span class="pill">Django</span>
+        <span class="pill">Auth</span>
+      </div>
+
+      <div class="brand-footer">
+        <small>© EMS • Admin Portal</small>
+      </div>
+    </aside>
+
+    <main class="auth-right">
+      <div class="auth-card">
+        <div class="auth-card-head">
+          <h2>Login Page</h2>
+          <br>
+        </div>
+
+        <form method="POST" class="auth-form" onsubmit="return validateLoginForm();">
+          {% csrf_token %}
+
+          <label class="field">
+            <span class="field-label">Username</span>
+            <div class="field-control">
+              <span class="field-icon">👤</span>
+              <input type="text" name="username" placeholder="Enter username" autocomplete="username" required>
+            </div>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Password</span>
+            <div class="field-control">
+              <span class="field-icon">🔒</span>
+              <input type="password" name="password" placeholder="Enter password" autocomplete="current-password" required>
+            </div>
+          </label>
+
+          {% if error %}
+            <div class="auth-error">{{ error }}</div>
+          {% endif %}
+
+          <button type="submit" class="btn-primary">Login</button>
+
+          <div class="auth-hint">
+          </div>
+        </form>
+      </div>
+    </main>
+
+  </div>
+
+</body>
+</html>

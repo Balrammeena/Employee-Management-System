@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}EMS Dashboard{% endblock %}</title>
+
+  <!-- Dashboard UI -->
+  <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+
+  <!-- Optional: your old styles (safe) -->
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+
+  <script src="{% static 'script.js' %}" defer></script>
+</head>
+
+<body>
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="profile">
+          <div class="avatar">{{ request.user.username|default:"A"|slice:":1"|upper }}</div>
+          <div class="profile-text">
+            <div class="name">{{ request.user.username|default:"admin" }}</div>
+            <div class="role">Admin</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Features</div>
+
+        <a class="nav-link active" href="{% url 'home' %}">
+          <span class="icon">🏠</span>
+          <span>Dashboard</span>
+        </a>
+
+        <a class="nav-link" href="{% url 'messages' %}">
+          <span class="icon">✉️</span>
+          <span>Messages</span>
+          <span class="badge">1</span>
+        </a>
+
+        <div class="sidebar-title small">Organization</div>
+
+        <a class="nav-link" href="{% url 'home' %}">
+          <span class="icon">👥</span>
+          <span>Employee Management</span>
+        </a>
+
+        <a class="nav-link" href="{% url 'employee_settings' %}">
+          <span class="icon">⚙️</span>
+          <span>Employee Settings</span>
+        </a>
+
+        <a class="nav-link" href="{% url 'employee_recall' %}">
+          <span class="icon">📌</span>
+          <span>Employee Recall</span>
+        </a>
+
+        <a class="nav-link" href="{% url 'reports' %}">
+          <span class="icon">📊</span>
+          <span>Reports</span>
+        </a>
+      </div>
+
+      <div class="sidebar-bottom">
+        <a class="logout" href="{% url 'logout' %}" onclick="return confirmLogout();">
+          ⏻ Log Out
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <!-- Hamburger -->
+        <button class="hamburger" type="button" onclick="toggleSidebar()" aria-label="Menu">
+          ☰
+        </button>
+
+        <div class="topbar-center">
+
+          <!-- Dropdown -->
+          <div class="dropdown">
+            <button class="dd-btn" type="button" onclick="toggleDropdown()">
+              <span class="dd-text">{{ dept|default:"All Employees" }}</span>
+              <span class="dd-arrow">▾</span>
+            </button>
+
+            <div class="dd-menu" id="empDropdown">
+              <a href="{% url 'home' %}">All Employees</a>
+              <a href="{% url 'home' %}?dept=IT">IT</a>
+              <a href="{% url 'home' %}?dept=HR">HR</a>
+              <a href="{% url 'home' %}?dept=Finance">Finance</a>
+            </div>
+          </div>
+
+
+        <!-- Right icons -->
+        <div class="topbar-right">
+
+          <div class="icon-dropdown">
+            <button class="circle" type="button" onclick="toggleMenu('notifyMenu')">🔔</button>
+            <div class="icon-menu" id="notifyMenu">
+              <div class="menu-title">Notifications</div>
+              <p class="menu-text">No new notifications</p>
+            </div>
+          </div>
+
+          <div class="icon-dropdown">
+            <button class="circle" type="button" onclick="toggleMenu('profileMenu')">👤</button>
+            <div class="icon-menu" id="profileMenu">
+              <div class="menu-title">Profile</div>
+              <p class="menu-text"><strong>{{ request.user.username }}</strong></p>
+              <a href="{% url 'logout' %}" onclick="return confirmLogout();">Logout</a>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <section class="content">
+        {% block content %}{% endblock %}
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>

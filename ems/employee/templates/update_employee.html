@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Update Employee | EMS{% endblock %}
+
+{% block content %}
+
+<div class="form-card">
+
+  <h2>Update Employee</h2>
+  <p>Edit employee details below.</p>
+
+  <form method="POST" onsubmit="return validateEmployeeForm();">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" name="name" value="{{ emp.name }}" required>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" value="{{ emp.email }}" required>
+    </div>
+
+    <div class="form-group">
+      <label>Department</label>
+      <input type="text" name="department" value="{{ emp.department }}" required>
+    </div>
+
+    <div class="form-group">
+      <label>Salary</label>
+      <input type="number" name="salary" value="{{ emp.salary }}" required>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn blue">Update</button>
+      <a href="/" class="btn red">Cancel</a>
+    </div>
+
+  </form>
+
+</div>
+
+{% endblock %}

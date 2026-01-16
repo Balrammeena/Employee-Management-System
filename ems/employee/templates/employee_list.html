@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee List</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <script src="{% static 'script.js' %}"></script>
+</head>
+<body>
+  <h1> Raj Vardhan Employee List</h1>
+
+<a href="/logout/">Logout</a>
+<br><br>
+  
+<form method="GET">
+    <input type="text" name="search" placeholder="Search by name">
+    <input type="text" name="department" placeholder="Filter by department">
+    <button type="submit">Search</button>
+</form>
+
+<a href="/add/">Add Employee</a>
+
+<table border="1">
+ <tr>
+  <th>Name</th>
+  <th>Email</th>
+  <th>Dept</th>
+  <th>Salary</th>
+  <th>Action</th>
+</tr>
+
+{% for emp in employees %}
+<tr>
+  <td>{{ emp.name }}</td>
+  <td>{{ emp.email }}</td>
+  <td>{{ emp.department }}</td>
+  <td>{{ emp.salary }}</td>
+  <td>
+    <a href="/update/{{ emp.id }}/">Edit</a> |
+    <a href="/delete/{{ emp.id }}/">Delete</a>
+  </td>
+</tr>
+{% endfor %}
+</table>
+
+</body>
+</html>

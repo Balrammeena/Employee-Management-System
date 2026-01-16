@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Home | EMS{% endblock %}
+
+{% block content %}
+
+<div class="page-head">
+  <div class="page-title">
+    <div class="page-icon">📘</div>
+    <div>
+      <h2>Employee Management</h2>
+      <p>Manage employee records with CRUD operations.</p>
+    </div>
+  </div>
+
+  <a class="btn green" href="{% url 'add_employee' %}">+ Add Employee</a>
+</div>
+
+<!-- Tabs become working links -->
+<div class="tabs">
+  <a class="tab" href="{% url 'employee_settings' %}">Employee Settings</a>
+  <a class="tab" href="{% url 'employee_recall' %}">Employee Recall</a>
+  <a class="tab active" href="{% url 'home' %}">Employee History</a>
+  <a class="tab" href="{% url 'reports' %}">Reports</a>
+</div>
+
+<div class="card">
+  <div class="card-head">
+    <h3>Employee History</h3>
+    <a class="btn small green" href="{% url 'export_employees' %}">Export ⬇</a>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Salary</th>
+          <th style="width:170px;">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for emp in employees %}
+        <tr>
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.department }}</td>
+          <td>{{ emp.salary }}</td>
+          <td class="actions">
+            <a class="btn small blue" href="{% url 'update_employee' emp.id %}">Edit</a>
+            <a class="btn small red" href="{% url 'delete_employee' emp.id %}" onclick="return confirmDelete();">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" style="text-align:center;">No employees found</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
